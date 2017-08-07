@@ -37,4 +37,14 @@ public class ButtonFuctions : MonoBehaviour {
             cameraAnimator.Play("BackFromMissionsBoard");
         }
     }
+    public void GoToCharacterInfo()
+    {
+        cameraParent.transform.position = new Vector3(0f, -116f, 0f);
+        cameraAnimator.Play("ShowCharacter");
+    }
+    public void BackToMenu()
+    {
+        cameraParent.transform.position = new Vector3(0f, 0f, 0f);
+        cameraAnimator.Play("BackToMenu");
+    }
 }
