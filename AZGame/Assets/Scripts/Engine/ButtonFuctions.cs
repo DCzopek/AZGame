@@ -12,6 +12,13 @@ public class ButtonFuctions : MonoBehaviour {
     [SerializeField] GameObject[] characterInfoImages;
     [SerializeField] GameObject chooseCharacterScreen;
     [SerializeField] Text characterDescription;
+    [SerializeField] Text characterName;
+    [SerializeField] Text melee;
+    [SerializeField] Text distance;
+    [SerializeField] Text magic;
+    [SerializeField] Text experience;
+    [SerializeField] Text level;
+
 
     private bool isActualMissionShowed;
 
@@ -59,7 +66,13 @@ public class ButtonFuctions : MonoBehaviour {
     public void GoToCharacterInfo()
     {
         //GDEManager.character.LoadFromSavedData(GDEItemKeys.Characters_CH000);
-        characterDescription.text = "" + GDEManager.character.characterDescription;
+        characterDescription.text = System.String.Empty + GDEManager.character.characterDescription;
+        characterName.text = System.String.Empty + GDEManager.character.characterName;
+        melee.text = "Melee " + GDEManager.character.basicMelee;
+        distance.text = "Distance " + GDEManager.character.basicDistance;
+        magic.text = "Magic " + GDEManager.character.basicMagic;
+        experience.text = "Experience " + GDEManager.character.experience;
+        level.text = "Level " + GDEManager.character.level;
         cameraParent.transform.position = new Vector3(0f, -116f, 0f);
         cameraAnimator.Play("ShowCharacter");
     }
@@ -89,5 +102,8 @@ public class ButtonFuctions : MonoBehaviour {
         //GDEManager.SaveData();
         chooseCharacterScreen.SetActive(false);
     }
-
+    public void EnterTavern()
+    {
+        cameraAnimator.Play("EnterTavern");
+    }
 }
