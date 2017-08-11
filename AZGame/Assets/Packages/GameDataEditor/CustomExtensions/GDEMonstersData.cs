@@ -18,44 +18,58 @@ namespace GameDataEditor
 {
     public class GDEMonstersData : IGDEData
     {
-        static string BasicMeleeKey = "BasicMelee";
-		float _BasicMelee;
-        public float BasicMelee
+        static string HealthPointsKey = "HealthPoints";
+		float _HealthPoints;
+        public float HealthPoints
         {
-            get { return _BasicMelee; }
+            get { return _HealthPoints; }
             set {
-                if (_BasicMelee != value)
+                if (_HealthPoints != value)
                 {
-                    _BasicMelee = value;
-					GDEDataManager.SetFloat(_key, BasicMeleeKey, _BasicMelee);
+                    _HealthPoints = value;
+					GDEDataManager.SetFloat(_key, HealthPointsKey, _HealthPoints);
                 }
             }
         }
 
-        static string BasicDistanceKey = "BasicDistance";
-		float _BasicDistance;
-        public float BasicDistance
+        static string BasicMeleeLowKey = "BasicMeleeLow";
+		float _BasicMeleeLow;
+        public float BasicMeleeLow
         {
-            get { return _BasicDistance; }
+            get { return _BasicMeleeLow; }
             set {
-                if (_BasicDistance != value)
+                if (_BasicMeleeLow != value)
                 {
-                    _BasicDistance = value;
-					GDEDataManager.SetFloat(_key, BasicDistanceKey, _BasicDistance);
+                    _BasicMeleeLow = value;
+					GDEDataManager.SetFloat(_key, BasicMeleeLowKey, _BasicMeleeLow);
                 }
             }
         }
 
-        static string BasicMagicKey = "BasicMagic";
-		float _BasicMagic;
-        public float BasicMagic
+        static string BasicDistanceLowKey = "BasicDistanceLow";
+		float _BasicDistanceLow;
+        public float BasicDistanceLow
         {
-            get { return _BasicMagic; }
+            get { return _BasicDistanceLow; }
             set {
-                if (_BasicMagic != value)
+                if (_BasicDistanceLow != value)
                 {
-                    _BasicMagic = value;
-					GDEDataManager.SetFloat(_key, BasicMagicKey, _BasicMagic);
+                    _BasicDistanceLow = value;
+					GDEDataManager.SetFloat(_key, BasicDistanceLowKey, _BasicDistanceLow);
+                }
+            }
+        }
+
+        static string BasicMagicLowKey = "BasicMagicLow";
+		float _BasicMagicLow;
+        public float BasicMagicLow
+        {
+            get { return _BasicMagicLow; }
+            set {
+                if (_BasicMagicLow != value)
+                {
+                    _BasicMagicLow = value;
+					GDEDataManager.SetFloat(_key, BasicMagicLowKey, _BasicMagicLow);
                 }
             }
         }
@@ -125,9 +139,10 @@ namespace GameDataEditor
 			var dict = new Dictionary<string, object>();
 			dict.Add(GDMConstants.SchemaKey, "Monsters");
 			
-            dict.Merge(true, BasicMelee.ToGDEDict(BasicMeleeKey));
-            dict.Merge(true, BasicDistance.ToGDEDict(BasicDistanceKey));
-            dict.Merge(true, BasicMagic.ToGDEDict(BasicMagicKey));
+            dict.Merge(true, HealthPoints.ToGDEDict(HealthPointsKey));
+            dict.Merge(true, BasicMeleeLow.ToGDEDict(BasicMeleeLowKey));
+            dict.Merge(true, BasicDistanceLow.ToGDEDict(BasicDistanceLowKey));
+            dict.Merge(true, BasicMagicLow.ToGDEDict(BasicMagicLowKey));
             dict.Merge(true, MonsterName.ToGDEDict(MonsterNameKey));
             dict.Merge(true, MonsterType.ToGDEDict(MonsterTypeKey));
             dict.Merge(true, MonsterDescription.ToGDEDict(MonsterDescriptionKey));
@@ -147,9 +162,10 @@ namespace GameDataEditor
 				LoadFromSavedData(dataKey);
 			else
 			{
-                dict.TryGetFloat(BasicMeleeKey, out _BasicMelee);
-                dict.TryGetFloat(BasicDistanceKey, out _BasicDistance);
-                dict.TryGetFloat(BasicMagicKey, out _BasicMagic);
+                dict.TryGetFloat(HealthPointsKey, out _HealthPoints);
+                dict.TryGetFloat(BasicMeleeLowKey, out _BasicMeleeLow);
+                dict.TryGetFloat(BasicDistanceLowKey, out _BasicDistanceLow);
+                dict.TryGetFloat(BasicMagicLowKey, out _BasicMagicLow);
                 dict.TryGetString(MonsterNameKey, out _MonsterName);
                 dict.TryGetString(MonsterTypeKey, out _MonsterType);
                 dict.TryGetString(MonsterDescriptionKey, out _MonsterDescription);
@@ -162,9 +178,10 @@ namespace GameDataEditor
 		{
 			_key = dataKey;
 			
-            _BasicMelee = GDEDataManager.GetFloat(_key, BasicMeleeKey, _BasicMelee);
-            _BasicDistance = GDEDataManager.GetFloat(_key, BasicDistanceKey, _BasicDistance);
-            _BasicMagic = GDEDataManager.GetFloat(_key, BasicMagicKey, _BasicMagic);
+            _HealthPoints = GDEDataManager.GetFloat(_key, HealthPointsKey, _HealthPoints);
+            _BasicMeleeLow = GDEDataManager.GetFloat(_key, BasicMeleeLowKey, _BasicMeleeLow);
+            _BasicDistanceLow = GDEDataManager.GetFloat(_key, BasicDistanceLowKey, _BasicDistanceLow);
+            _BasicMagicLow = GDEDataManager.GetFloat(_key, BasicMagicLowKey, _BasicMagicLow);
             _MonsterName = GDEDataManager.GetString(_key, MonsterNameKey, _MonsterName);
             _MonsterType = GDEDataManager.GetString(_key, MonsterTypeKey, _MonsterType);
             _MonsterDescription = GDEDataManager.GetString(_key, MonsterDescriptionKey, _MonsterDescription);
@@ -176,9 +193,10 @@ namespace GameDataEditor
 			string newKey = Guid.NewGuid().ToString();
 			GDEMonstersData newClone = new GDEMonstersData(newKey);
 
-            newClone.BasicMelee = BasicMelee;
-            newClone.BasicDistance = BasicDistance;
-            newClone.BasicMagic = BasicMagic;
+            newClone.HealthPoints = HealthPoints;
+            newClone.BasicMeleeLow = BasicMeleeLow;
+            newClone.BasicDistanceLow = BasicDistanceLow;
+            newClone.BasicMagicLow = BasicMagicLow;
             newClone.MonsterName = MonsterName;
             newClone.MonsterType = MonsterType;
             newClone.MonsterDescription = MonsterDescription;
@@ -193,31 +211,40 @@ namespace GameDataEditor
             return newClone;
 		}
 
-        public void Reset_BasicMelee()
+        public void Reset_HealthPoints()
         {
-            GDEDataManager.ResetToDefault(_key, BasicMeleeKey);
+            GDEDataManager.ResetToDefault(_key, HealthPointsKey);
 
             Dictionary<string, object> dict;
             GDEDataManager.Get(_key, out dict);
-            dict.TryGetFloat(BasicMeleeKey, out _BasicMelee);
+            dict.TryGetFloat(HealthPointsKey, out _HealthPoints);
         }
 
-        public void Reset_BasicDistance()
+        public void Reset_BasicMeleeLow()
         {
-            GDEDataManager.ResetToDefault(_key, BasicDistanceKey);
+            GDEDataManager.ResetToDefault(_key, BasicMeleeLowKey);
 
             Dictionary<string, object> dict;
             GDEDataManager.Get(_key, out dict);
-            dict.TryGetFloat(BasicDistanceKey, out _BasicDistance);
+            dict.TryGetFloat(BasicMeleeLowKey, out _BasicMeleeLow);
         }
 
-        public void Reset_BasicMagic()
+        public void Reset_BasicDistanceLow()
         {
-            GDEDataManager.ResetToDefault(_key, BasicMagicKey);
+            GDEDataManager.ResetToDefault(_key, BasicDistanceLowKey);
 
             Dictionary<string, object> dict;
             GDEDataManager.Get(_key, out dict);
-            dict.TryGetFloat(BasicMagicKey, out _BasicMagic);
+            dict.TryGetFloat(BasicDistanceLowKey, out _BasicDistanceLow);
+        }
+
+        public void Reset_BasicMagicLow()
+        {
+            GDEDataManager.ResetToDefault(_key, BasicMagicLowKey);
+
+            Dictionary<string, object> dict;
+            GDEDataManager.Get(_key, out dict);
+            dict.TryGetFloat(BasicMagicLowKey, out _BasicMagicLow);
         }
 
         public void Reset_MonsterName()
@@ -262,9 +289,10 @@ namespace GameDataEditor
             GDEDataManager.ResetToDefault(_key, MonsterTypeKey);
             GDEDataManager.ResetToDefault(_key, MonsterDescriptionKey);
             GDEDataManager.ResetToDefault(_key, DifficultyLevelKey);
-            GDEDataManager.ResetToDefault(_key, BasicMeleeKey);
-            GDEDataManager.ResetToDefault(_key, BasicDistanceKey);
-            GDEDataManager.ResetToDefault(_key, BasicMagicKey);
+            GDEDataManager.ResetToDefault(_key, HealthPointsKey);
+            GDEDataManager.ResetToDefault(_key, BasicMeleeLowKey);
+            GDEDataManager.ResetToDefault(_key, BasicDistanceLowKey);
+            GDEDataManager.ResetToDefault(_key, BasicMagicLowKey);
 
 
             Dictionary<string, object> dict;

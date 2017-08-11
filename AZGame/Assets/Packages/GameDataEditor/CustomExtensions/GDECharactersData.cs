@@ -18,6 +18,48 @@ namespace GameDataEditor
 {
     public class GDECharactersData : IGDEData
     {
+        static string HealthPointsKey = "HealthPoints";
+		float _HealthPoints;
+        public float HealthPoints
+        {
+            get { return _HealthPoints; }
+            set {
+                if (_HealthPoints != value)
+                {
+                    _HealthPoints = value;
+					GDEDataManager.SetFloat(_key, HealthPointsKey, _HealthPoints);
+                }
+            }
+        }
+
+        static string ExperienceKey = "Experience";
+		float _Experience;
+        public float Experience
+        {
+            get { return _Experience; }
+            set {
+                if (_Experience != value)
+                {
+                    _Experience = value;
+					GDEDataManager.SetFloat(_key, ExperienceKey, _Experience);
+                }
+            }
+        }
+
+        static string LevelKey = "Level";
+		float _Level;
+        public float Level
+        {
+            get { return _Level; }
+            set {
+                if (_Level != value)
+                {
+                    _Level = value;
+					GDEDataManager.SetFloat(_key, LevelKey, _Level);
+                }
+            }
+        }
+
         static string BasicMeleeKey = "BasicMelee";
 		float _BasicMelee;
         public float BasicMelee
@@ -111,6 +153,9 @@ namespace GameDataEditor
 			var dict = new Dictionary<string, object>();
 			dict.Add(GDMConstants.SchemaKey, "Characters");
 			
+            dict.Merge(true, HealthPoints.ToGDEDict(HealthPointsKey));
+            dict.Merge(true, Experience.ToGDEDict(ExperienceKey));
+            dict.Merge(true, Level.ToGDEDict(LevelKey));
             dict.Merge(true, BasicMelee.ToGDEDict(BasicMeleeKey));
             dict.Merge(true, BasicDistance.ToGDEDict(BasicDistanceKey));
             dict.Merge(true, BasicMagic.ToGDEDict(BasicMagicKey));
@@ -132,6 +177,9 @@ namespace GameDataEditor
 				LoadFromSavedData(dataKey);
 			else
 			{
+                dict.TryGetFloat(HealthPointsKey, out _HealthPoints);
+                dict.TryGetFloat(ExperienceKey, out _Experience);
+                dict.TryGetFloat(LevelKey, out _Level);
                 dict.TryGetFloat(BasicMeleeKey, out _BasicMelee);
                 dict.TryGetFloat(BasicDistanceKey, out _BasicDistance);
                 dict.TryGetFloat(BasicMagicKey, out _BasicMagic);
@@ -146,6 +194,9 @@ namespace GameDataEditor
 		{
 			_key = dataKey;
 			
+            _HealthPoints = GDEDataManager.GetFloat(_key, HealthPointsKey, _HealthPoints);
+            _Experience = GDEDataManager.GetFloat(_key, ExperienceKey, _Experience);
+            _Level = GDEDataManager.GetFloat(_key, LevelKey, _Level);
             _BasicMelee = GDEDataManager.GetFloat(_key, BasicMeleeKey, _BasicMelee);
             _BasicDistance = GDEDataManager.GetFloat(_key, BasicDistanceKey, _BasicDistance);
             _BasicMagic = GDEDataManager.GetFloat(_key, BasicMagicKey, _BasicMagic);
@@ -159,6 +210,9 @@ namespace GameDataEditor
 			string newKey = Guid.NewGuid().ToString();
 			GDECharactersData newClone = new GDECharactersData(newKey);
 
+            newClone.HealthPoints = HealthPoints;
+            newClone.Experience = Experience;
+            newClone.Level = Level;
             newClone.BasicMelee = BasicMelee;
             newClone.BasicDistance = BasicDistance;
             newClone.BasicMagic = BasicMagic;
@@ -174,6 +228,33 @@ namespace GameDataEditor
 			GDECharactersData newClone = ShallowClone();
             return newClone;
 		}
+
+        public void Reset_HealthPoints()
+        {
+            GDEDataManager.ResetToDefault(_key, HealthPointsKey);
+
+            Dictionary<string, object> dict;
+            GDEDataManager.Get(_key, out dict);
+            dict.TryGetFloat(HealthPointsKey, out _HealthPoints);
+        }
+
+        public void Reset_Experience()
+        {
+            GDEDataManager.ResetToDefault(_key, ExperienceKey);
+
+            Dictionary<string, object> dict;
+            GDEDataManager.Get(_key, out dict);
+            dict.TryGetFloat(ExperienceKey, out _Experience);
+        }
+
+        public void Reset_Level()
+        {
+            GDEDataManager.ResetToDefault(_key, LevelKey);
+
+            Dictionary<string, object> dict;
+            GDEDataManager.Get(_key, out dict);
+            dict.TryGetFloat(LevelKey, out _Level);
+        }
 
         public void Reset_BasicMelee()
         {
@@ -234,6 +315,9 @@ namespace GameDataEditor
             GDEDataManager.ResetToDefault(_key, CharacterNameKey);
             GDEDataManager.ResetToDefault(_key, CharacterDescriptionKey);
             GDEDataManager.ResetToDefault(_key, DifficultyLevelKey);
+            GDEDataManager.ResetToDefault(_key, HealthPointsKey);
+            GDEDataManager.ResetToDefault(_key, ExperienceKey);
+            GDEDataManager.ResetToDefault(_key, LevelKey);
             GDEDataManager.ResetToDefault(_key, BasicMeleeKey);
             GDEDataManager.ResetToDefault(_key, BasicDistanceKey);
             GDEDataManager.ResetToDefault(_key, BasicMagicKey);

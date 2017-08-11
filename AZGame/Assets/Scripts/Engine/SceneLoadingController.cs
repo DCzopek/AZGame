@@ -66,8 +66,8 @@ public class SceneLoadingController : MonoBehaviour
         {
             case GameScene.Menu:
                 return "002_Menu";
-            //case GameScene.Main:
-            //    return "003_Main";
+            case GameScene.Adventure:
+                return "003_Adventure";
             //case GameScene.Animation:
             //    return "ShaderTest";
             default:

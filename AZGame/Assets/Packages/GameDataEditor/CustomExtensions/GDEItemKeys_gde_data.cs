@@ -15,7 +15,31 @@ namespace GameDataEditor
 {
     public partial class GDEItemKeys
     {
-        public static string Characters_CH000 = "CH000";
         public static string Characters_CH001 = "CH001";
+        public static string Characters_CH002 = "CH002";
+        public static string Characters_CH003 = "CH003";
+        public static string Characters_CH004 = "CH004";
+        public static string Characters_CH005 = "CH005";
+        public static string Monsters_MO001 = "MO001";
+        public static string Monsters_MO002 = "MO002";
+        public static string Monsters_MO003 = "MO003";
+        public static string Monsters_MO004 = "MO004";
+        public static string Monsters_MO005 = "MO005";
+        public static string Monsters_MO006 = "MO006";
+        public static string Monsters_MO007 = "MO007";
+        public static string Monsters_MO008 = "MO008";
+        public static string Monsters_MO009 = "MO009";
+        public static string Monsters_MO010 = "MO010";
+        public static string Monsters_MO011 = "MO011";
+        public static string Monsters_MO012 = "MO012";
+        public static string Monsters_MO013 = "MO013";
+        public static string Monsters_MO014 = "MO014";
+        public static string Monsters_MO015 = "MO015";
+        public static string Monsters_MO016 = "MO016";
+        public static string Monsters_MO017 = "MO017";
+        public static string Monsters_MO018 = "MO018";
+        public static string Monsters_MO019 = "MO019";
+        public static string Monsters_MO020 = "MO020";
+        public static string Missions_M001 = "M001";
     }
 }
