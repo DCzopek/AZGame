@@ -26,6 +26,7 @@ public class ButtonFuctions : MonoBehaviour {
 
     private void Awake()
     {
+        //TODO Load from data actual mission, if there is something load this
         //PlayerPrefs.SetInt("characterChoosen", 0);
         sceneController = FindObjectOfType<SceneLoadingController>();
         if(PlayerPrefs.GetInt("characterChoosen") == 0)
