@@ -23,13 +23,15 @@ public class ButtonFuctions : MonoBehaviour {
     private bool isActualMissionShowed;
 
     SceneLoadingController sceneController;
+    GDEManager gdeManager;
 
     private void Awake()
     {
-        //TODO Load from data actual mission, if there is something load this
         //PlayerPrefs.SetInt("characterChoosen", 0);
         sceneController = FindObjectOfType<SceneLoadingController>();
-        if(PlayerPrefs.GetInt("characterChoosen") == 0)
+        gdeManager = FindObjectOfType<GDEManager>();
+
+        if (PlayerPrefs.GetInt("characterChoosen") == 0)
             chooseCharacterScreen.SetActive(true);
         else GDEManager.LoadPlayerData();
     }
@@ -66,7 +68,6 @@ public class ButtonFuctions : MonoBehaviour {
     }
     public void GoToCharacterInfo()
     {
-        //GDEManager.character.LoadFromSavedData(GDEItemKeys.Characters_CH000);
         characterDescription.text = System.String.Empty + GDEManager.character.characterDescription;
         characterName.text = System.String.Empty + GDEManager.character.characterName;
         melee.text = "Melee " + GDEManager.character.basicMelee;

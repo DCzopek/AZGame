@@ -18,6 +18,20 @@ namespace GameDataEditor
 {
     public class GDEMissionsData : IGDEData
     {
+        static string FirstCardKey = "FirstCard";
+		bool _FirstCard;
+        public bool FirstCard
+        {
+            get { return _FirstCard; }
+            set {
+                if (_FirstCard != value)
+                {
+                    _FirstCard = value;
+					GDEDataManager.SetBool(_key, FirstCardKey, _FirstCard);
+                }
+            }
+        }
+
         static string MissionLevelKey = "MissionLevel";
 		float _MissionLevel;
         public float MissionLevel
@@ -28,62 +42,6 @@ namespace GameDataEditor
                 {
                     _MissionLevel = value;
 					GDEDataManager.SetFloat(_key, MissionLevelKey, _MissionLevel);
-                }
-            }
-        }
-
-        static string MeleeRewardKey = "MeleeReward";
-		float _MeleeReward;
-        public float MeleeReward
-        {
-            get { return _MeleeReward; }
-            set {
-                if (_MeleeReward != value)
-                {
-                    _MeleeReward = value;
-					GDEDataManager.SetFloat(_key, MeleeRewardKey, _MeleeReward);
-                }
-            }
-        }
-
-        static string DistanceRewardKey = "DistanceReward";
-		float _DistanceReward;
-        public float DistanceReward
-        {
-            get { return _DistanceReward; }
-            set {
-                if (_DistanceReward != value)
-                {
-                    _DistanceReward = value;
-					GDEDataManager.SetFloat(_key, DistanceRewardKey, _DistanceReward);
-                }
-            }
-        }
-
-        static string MagicRewardKey = "MagicReward";
-		float _MagicReward;
-        public float MagicReward
-        {
-            get { return _MagicReward; }
-            set {
-                if (_MagicReward != value)
-                {
-                    _MagicReward = value;
-					GDEDataManager.SetFloat(_key, MagicRewardKey, _MagicReward);
-                }
-            }
-        }
-
-        static string FirstCardKey = "FirstCard";
-		string _FirstCard;
-        public string FirstCard
-        {
-            get { return _FirstCard; }
-            set {
-                if (_FirstCard != value)
-                {
-                    _FirstCard = value;
-					GDEDataManager.SetString(_key, FirstCardKey, _FirstCard);
                 }
             }
         }
@@ -251,11 +209,8 @@ namespace GameDataEditor
 			var dict = new Dictionary<string, object>();
 			dict.Add(GDMConstants.SchemaKey, "Missions");
 			
-            dict.Merge(true, MissionLevel.ToGDEDict(MissionLevelKey));
-            dict.Merge(true, MeleeReward.ToGDEDict(MeleeRewardKey));
-            dict.Merge(true, DistanceReward.ToGDEDict(DistanceRewardKey));
-            dict.Merge(true, MagicReward.ToGDEDict(MagicRewardKey));
             dict.Merge(true, FirstCard.ToGDEDict(FirstCardKey));
+            dict.Merge(true, MissionLevel.ToGDEDict(MissionLevelKey));
             dict.Merge(true, MissionName.ToGDEDict(MissionNameKey));
             dict.Merge(true, MissionDescription.ToGDEDict(MissionDescriptionKey));
             dict.Merge(true, DifficultyLevel.ToGDEDict(DifficultyLevelKey));
@@ -282,11 +237,8 @@ namespace GameDataEditor
 				LoadFromSavedData(dataKey);
 			else
 			{
+                dict.TryGetBool(FirstCardKey, out _FirstCard);
                 dict.TryGetFloat(MissionLevelKey, out _MissionLevel);
-                dict.TryGetFloat(MeleeRewardKey, out _MeleeReward);
-                dict.TryGetFloat(DistanceRewardKey, out _DistanceReward);
-                dict.TryGetFloat(MagicRewardKey, out _MagicReward);
-                dict.TryGetString(FirstCardKey, out _FirstCard);
                 dict.TryGetString(MissionNameKey, out _MissionName);
                 dict.TryGetString(MissionDescriptionKey, out _MissionDescription);
                 dict.TryGetString(DifficultyLevelKey, out _DifficultyLevel);
@@ -306,11 +258,8 @@ namespace GameDataEditor
 		{
 			_key = dataKey;
 			
+            _FirstCard = GDEDataManager.GetBool(_key, FirstCardKey, _FirstCard);
             _MissionLevel = GDEDataManager.GetFloat(_key, MissionLevelKey, _MissionLevel);
-            _MeleeReward = GDEDataManager.GetFloat(_key, MeleeRewardKey, _MeleeReward);
-            _DistanceReward = GDEDataManager.GetFloat(_key, DistanceRewardKey, _DistanceReward);
-            _MagicReward = GDEDataManager.GetFloat(_key, MagicRewardKey, _MagicReward);
-            _FirstCard = GDEDataManager.GetString(_key, FirstCardKey, _FirstCard);
             _MissionName = GDEDataManager.GetString(_key, MissionNameKey, _MissionName);
             _MissionDescription = GDEDataManager.GetString(_key, MissionDescriptionKey, _MissionDescription);
             _DifficultyLevel = GDEDataManager.GetString(_key, DifficultyLevelKey, _DifficultyLevel);
@@ -329,11 +278,8 @@ namespace GameDataEditor
 			string newKey = Guid.NewGuid().ToString();
 			GDEMissionsData newClone = new GDEMissionsData(newKey);
 
-            newClone.MissionLevel = MissionLevel;
-            newClone.MeleeReward = MeleeReward;
-            newClone.DistanceReward = DistanceReward;
-            newClone.MagicReward = MagicReward;
             newClone.FirstCard = FirstCard;
+            newClone.MissionLevel = MissionLevel;
             newClone.MissionName = MissionName;
             newClone.MissionDescription = MissionDescription;
             newClone.DifficultyLevel = DifficultyLevel;
@@ -355,6 +301,15 @@ namespace GameDataEditor
             return newClone;
 		}
 
+        public void Reset_FirstCard()
+        {
+            GDEDataManager.ResetToDefault(_key, FirstCardKey);
+
+            Dictionary<string, object> dict;
+            GDEDataManager.Get(_key, out dict);
+            dict.TryGetBool(FirstCardKey, out _FirstCard);
+        }
+
         public void Reset_MissionLevel()
         {
             GDEDataManager.ResetToDefault(_key, MissionLevelKey);
@@ -362,42 +317,6 @@ namespace GameDataEditor
             Dictionary<string, object> dict;
             GDEDataManager.Get(_key, out dict);
             dict.TryGetFloat(MissionLevelKey, out _MissionLevel);
-        }
-
-        public void Reset_MeleeReward()
-        {
-            GDEDataManager.ResetToDefault(_key, MeleeRewardKey);
-
-            Dictionary<string, object> dict;
-            GDEDataManager.Get(_key, out dict);
-            dict.TryGetFloat(MeleeRewardKey, out _MeleeReward);
-        }
-
-        public void Reset_DistanceReward()
-        {
-            GDEDataManager.ResetToDefault(_key, DistanceRewardKey);
-
-            Dictionary<string, object> dict;
-            GDEDataManager.Get(_key, out dict);
-            dict.TryGetFloat(DistanceRewardKey, out _DistanceReward);
-        }
-
-        public void Reset_MagicReward()
-        {
-            GDEDataManager.ResetToDefault(_key, MagicRewardKey);
-
-            Dictionary<string, object> dict;
-            GDEDataManager.Get(_key, out dict);
-            dict.TryGetFloat(MagicRewardKey, out _MagicReward);
-        }
-
-        public void Reset_FirstCard()
-        {
-            GDEDataManager.ResetToDefault(_key, FirstCardKey);
-
-            Dictionary<string, object> dict;
-            GDEDataManager.Get(_key, out dict);
-            dict.TryGetString(FirstCardKey, out _FirstCard);
         }
 
         public void Reset_MissionName()
@@ -506,9 +425,6 @@ namespace GameDataEditor
             GDEDataManager.ResetToDefault(_key, MissionDescriptionKey);
             GDEDataManager.ResetToDefault(_key, MissionLevelKey);
             GDEDataManager.ResetToDefault(_key, DifficultyLevelKey);
-            GDEDataManager.ResetToDefault(_key, MeleeRewardKey);
-            GDEDataManager.ResetToDefault(_key, DistanceRewardKey);
-            GDEDataManager.ResetToDefault(_key, MagicRewardKey);
             GDEDataManager.ResetToDefault(_key, FirstChooseKey);
             GDEDataManager.ResetToDefault(_key, FirstNextKey);
             GDEDataManager.ResetToDefault(_key, SecondChooseKey);

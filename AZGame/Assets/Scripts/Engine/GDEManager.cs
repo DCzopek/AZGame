@@ -13,20 +13,44 @@ public class GDEManager : MonoBehaviour {
     public static Character character = new Character();
     public static List<GDECharactersData> characterList;
 
+    public static List<GDEMissionsData> missionList;
+    public GDEMissionsData currentMission;
+
     static FileStream file;
     static PlayerData data = new PlayerData();
+
+    public static GDEManager Instance { get; private set; }
+
+    void Awake()
+    {
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Use this for initialization
     void Start ()
     {
         GDEDataManager.Init("gde_data_enc", true);
         if (!File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
             file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
+
         characterList = new List<GDECharactersData>();
+        missionList = new List<GDEMissionsData>();
+
+        FindMissions();
 
         FindCharacters();
         FillCharactersDescriptionsText();
         //Choose character once and set his data to current character
 
+    }
+    void FindMissions()
+    {
+        foreach(GDEMissionsData item in GDEDataManager.GetAllItems<GDEMissionsData>())
+        {
+            if (item.FirstCard)
+                missionList.Add(item);
+        }
     }
     void FindCharacters()
     {
