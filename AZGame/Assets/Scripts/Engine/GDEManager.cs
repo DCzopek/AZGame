@@ -24,8 +24,12 @@ public class GDEManager : MonoBehaviour {
 
     void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        
     }
 
     // Use this for initialization
