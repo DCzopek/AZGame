@@ -32,6 +32,20 @@ namespace GameDataEditor
             }
         }
 
+        static string FightKey = "Fight";
+		bool _Fight;
+        public bool Fight
+        {
+            get { return _Fight; }
+            set {
+                if (_Fight != value)
+                {
+                    _Fight = value;
+					GDEDataManager.SetBool(_key, FightKey, _Fight);
+                }
+            }
+        }
+
         static string MissionLevelKey = "MissionLevel";
 		float _MissionLevel;
         public float MissionLevel
@@ -74,128 +88,72 @@ namespace GameDataEditor
             }
         }
 
-        static string DifficultyLevelKey = "DifficultyLevel";
-		string _DifficultyLevel;
-        public string DifficultyLevel
+        static string NextCardKey = "NextCard";
+		string _NextCard;
+        public string NextCard
         {
-            get { return _DifficultyLevel; }
+            get { return _NextCard; }
             set {
-                if (_DifficultyLevel != value)
+                if (_NextCard != value)
                 {
-                    _DifficultyLevel = value;
-					GDEDataManager.SetString(_key, DifficultyLevelKey, _DifficultyLevel);
+                    _NextCard = value;
+					GDEDataManager.SetString(_key, NextCardKey, _NextCard);
                 }
             }
         }
 
-        static string FirstChooseKey = "FirstChoose";
-		string _FirstChoose;
-        public string FirstChoose
+        static string AnswerAKey = "AnswerA";
+		string _AnswerA;
+        public string AnswerA
         {
-            get { return _FirstChoose; }
+            get { return _AnswerA; }
             set {
-                if (_FirstChoose != value)
+                if (_AnswerA != value)
                 {
-                    _FirstChoose = value;
-					GDEDataManager.SetString(_key, FirstChooseKey, _FirstChoose);
+                    _AnswerA = value;
+					GDEDataManager.SetString(_key, AnswerAKey, _AnswerA);
                 }
             }
         }
 
-        static string FirstNextKey = "FirstNext";
-		string _FirstNext;
-        public string FirstNext
+        static string AnswerBKey = "AnswerB";
+		string _AnswerB;
+        public string AnswerB
         {
-            get { return _FirstNext; }
+            get { return _AnswerB; }
             set {
-                if (_FirstNext != value)
+                if (_AnswerB != value)
                 {
-                    _FirstNext = value;
-					GDEDataManager.SetString(_key, FirstNextKey, _FirstNext);
+                    _AnswerB = value;
+					GDEDataManager.SetString(_key, AnswerBKey, _AnswerB);
                 }
             }
         }
 
-        static string SecondChooseKey = "SecondChoose";
-		string _SecondChoose;
-        public string SecondChoose
+        static string AnswerCKey = "AnswerC";
+		string _AnswerC;
+        public string AnswerC
         {
-            get { return _SecondChoose; }
+            get { return _AnswerC; }
             set {
-                if (_SecondChoose != value)
+                if (_AnswerC != value)
                 {
-                    _SecondChoose = value;
-					GDEDataManager.SetString(_key, SecondChooseKey, _SecondChoose);
+                    _AnswerC = value;
+					GDEDataManager.SetString(_key, AnswerCKey, _AnswerC);
                 }
             }
         }
 
-        static string SecondNextKey = "SecondNext";
-		string _SecondNext;
-        public string SecondNext
+        static string AnswerDKey = "AnswerD";
+		string _AnswerD;
+        public string AnswerD
         {
-            get { return _SecondNext; }
+            get { return _AnswerD; }
             set {
-                if (_SecondNext != value)
+                if (_AnswerD != value)
                 {
-                    _SecondNext = value;
-					GDEDataManager.SetString(_key, SecondNextKey, _SecondNext);
-                }
-            }
-        }
-
-        static string ThirdChooseKey = "ThirdChoose";
-		string _ThirdChoose;
-        public string ThirdChoose
-        {
-            get { return _ThirdChoose; }
-            set {
-                if (_ThirdChoose != value)
-                {
-                    _ThirdChoose = value;
-					GDEDataManager.SetString(_key, ThirdChooseKey, _ThirdChoose);
-                }
-            }
-        }
-
-        static string ThirdNextKey = "ThirdNext";
-		string _ThirdNext;
-        public string ThirdNext
-        {
-            get { return _ThirdNext; }
-            set {
-                if (_ThirdNext != value)
-                {
-                    _ThirdNext = value;
-					GDEDataManager.SetString(_key, ThirdNextKey, _ThirdNext);
-                }
-            }
-        }
-
-        static string ForthChooseKey = "ForthChoose";
-		string _ForthChoose;
-        public string ForthChoose
-        {
-            get { return _ForthChoose; }
-            set {
-                if (_ForthChoose != value)
-                {
-                    _ForthChoose = value;
-					GDEDataManager.SetString(_key, ForthChooseKey, _ForthChoose);
-                }
-            }
-        }
-
-        static string ForthNextKey = "ForthNext";
-		string _ForthNext;
-        public string ForthNext
-        {
-            get { return _ForthNext; }
-            set {
-                if (_ForthNext != value)
-                {
-                    _ForthNext = value;
-					GDEDataManager.SetString(_key, ForthNextKey, _ForthNext);
+                    _AnswerD = value;
+					GDEDataManager.SetString(_key, AnswerDKey, _AnswerD);
                 }
             }
         }
@@ -210,18 +168,15 @@ namespace GameDataEditor
 			dict.Add(GDMConstants.SchemaKey, "Missions");
 			
             dict.Merge(true, FirstCard.ToGDEDict(FirstCardKey));
+            dict.Merge(true, Fight.ToGDEDict(FightKey));
             dict.Merge(true, MissionLevel.ToGDEDict(MissionLevelKey));
             dict.Merge(true, MissionName.ToGDEDict(MissionNameKey));
             dict.Merge(true, MissionDescription.ToGDEDict(MissionDescriptionKey));
-            dict.Merge(true, DifficultyLevel.ToGDEDict(DifficultyLevelKey));
-            dict.Merge(true, FirstChoose.ToGDEDict(FirstChooseKey));
-            dict.Merge(true, FirstNext.ToGDEDict(FirstNextKey));
-            dict.Merge(true, SecondChoose.ToGDEDict(SecondChooseKey));
-            dict.Merge(true, SecondNext.ToGDEDict(SecondNextKey));
-            dict.Merge(true, ThirdChoose.ToGDEDict(ThirdChooseKey));
-            dict.Merge(true, ThirdNext.ToGDEDict(ThirdNextKey));
-            dict.Merge(true, ForthChoose.ToGDEDict(ForthChooseKey));
-            dict.Merge(true, ForthNext.ToGDEDict(ForthNextKey));
+            dict.Merge(true, NextCard.ToGDEDict(NextCardKey));
+            dict.Merge(true, AnswerA.ToGDEDict(AnswerAKey));
+            dict.Merge(true, AnswerB.ToGDEDict(AnswerBKey));
+            dict.Merge(true, AnswerC.ToGDEDict(AnswerCKey));
+            dict.Merge(true, AnswerD.ToGDEDict(AnswerDKey));
             return dict;
 		}
 
@@ -238,18 +193,15 @@ namespace GameDataEditor
 			else
 			{
                 dict.TryGetBool(FirstCardKey, out _FirstCard);
+                dict.TryGetBool(FightKey, out _Fight);
                 dict.TryGetFloat(MissionLevelKey, out _MissionLevel);
                 dict.TryGetString(MissionNameKey, out _MissionName);
                 dict.TryGetString(MissionDescriptionKey, out _MissionDescription);
-                dict.TryGetString(DifficultyLevelKey, out _DifficultyLevel);
-                dict.TryGetString(FirstChooseKey, out _FirstChoose);
-                dict.TryGetString(FirstNextKey, out _FirstNext);
-                dict.TryGetString(SecondChooseKey, out _SecondChoose);
-                dict.TryGetString(SecondNextKey, out _SecondNext);
-                dict.TryGetString(ThirdChooseKey, out _ThirdChoose);
-                dict.TryGetString(ThirdNextKey, out _ThirdNext);
-                dict.TryGetString(ForthChooseKey, out _ForthChoose);
-                dict.TryGetString(ForthNextKey, out _ForthNext);
+                dict.TryGetString(NextCardKey, out _NextCard);
+                dict.TryGetString(AnswerAKey, out _AnswerA);
+                dict.TryGetString(AnswerBKey, out _AnswerB);
+                dict.TryGetString(AnswerCKey, out _AnswerC);
+                dict.TryGetString(AnswerDKey, out _AnswerD);
                 LoadFromSavedData(dataKey);
 			}
 		}
@@ -259,18 +211,15 @@ namespace GameDataEditor
 			_key = dataKey;
 			
             _FirstCard = GDEDataManager.GetBool(_key, FirstCardKey, _FirstCard);
+            _Fight = GDEDataManager.GetBool(_key, FightKey, _Fight);
             _MissionLevel = GDEDataManager.GetFloat(_key, MissionLevelKey, _MissionLevel);
             _MissionName = GDEDataManager.GetString(_key, MissionNameKey, _MissionName);
             _MissionDescription = GDEDataManager.GetString(_key, MissionDescriptionKey, _MissionDescription);
-            _DifficultyLevel = GDEDataManager.GetString(_key, DifficultyLevelKey, _DifficultyLevel);
-            _FirstChoose = GDEDataManager.GetString(_key, FirstChooseKey, _FirstChoose);
-            _FirstNext = GDEDataManager.GetString(_key, FirstNextKey, _FirstNext);
-            _SecondChoose = GDEDataManager.GetString(_key, SecondChooseKey, _SecondChoose);
-            _SecondNext = GDEDataManager.GetString(_key, SecondNextKey, _SecondNext);
-            _ThirdChoose = GDEDataManager.GetString(_key, ThirdChooseKey, _ThirdChoose);
-            _ThirdNext = GDEDataManager.GetString(_key, ThirdNextKey, _ThirdNext);
-            _ForthChoose = GDEDataManager.GetString(_key, ForthChooseKey, _ForthChoose);
-            _ForthNext = GDEDataManager.GetString(_key, ForthNextKey, _ForthNext);
+            _NextCard = GDEDataManager.GetString(_key, NextCardKey, _NextCard);
+            _AnswerA = GDEDataManager.GetString(_key, AnswerAKey, _AnswerA);
+            _AnswerB = GDEDataManager.GetString(_key, AnswerBKey, _AnswerB);
+            _AnswerC = GDEDataManager.GetString(_key, AnswerCKey, _AnswerC);
+            _AnswerD = GDEDataManager.GetString(_key, AnswerDKey, _AnswerD);
         }
 
         public GDEMissionsData ShallowClone()
@@ -279,18 +228,15 @@ namespace GameDataEditor
 			GDEMissionsData newClone = new GDEMissionsData(newKey);
 
             newClone.FirstCard = FirstCard;
+            newClone.Fight = Fight;
             newClone.MissionLevel = MissionLevel;
             newClone.MissionName = MissionName;
             newClone.MissionDescription = MissionDescription;
-            newClone.DifficultyLevel = DifficultyLevel;
-            newClone.FirstChoose = FirstChoose;
-            newClone.FirstNext = FirstNext;
-            newClone.SecondChoose = SecondChoose;
-            newClone.SecondNext = SecondNext;
-            newClone.ThirdChoose = ThirdChoose;
-            newClone.ThirdNext = ThirdNext;
-            newClone.ForthChoose = ForthChoose;
-            newClone.ForthNext = ForthNext;
+            newClone.NextCard = NextCard;
+            newClone.AnswerA = AnswerA;
+            newClone.AnswerB = AnswerB;
+            newClone.AnswerC = AnswerC;
+            newClone.AnswerD = AnswerD;
 
             return newClone;
 		}
@@ -308,6 +254,15 @@ namespace GameDataEditor
             Dictionary<string, object> dict;
             GDEDataManager.Get(_key, out dict);
             dict.TryGetBool(FirstCardKey, out _FirstCard);
+        }
+
+        public void Reset_Fight()
+        {
+            GDEDataManager.ResetToDefault(_key, FightKey);
+
+            Dictionary<string, object> dict;
+            GDEDataManager.Get(_key, out dict);
+            dict.TryGetBool(FightKey, out _Fight);
         }
 
         public void Reset_MissionLevel()
@@ -337,85 +292,49 @@ namespace GameDataEditor
             dict.TryGetString(MissionDescriptionKey, out _MissionDescription);
         }
 
-        public void Reset_DifficultyLevel()
+        public void Reset_NextCard()
         {
-            GDEDataManager.ResetToDefault(_key, DifficultyLevelKey);
+            GDEDataManager.ResetToDefault(_key, NextCardKey);
 
             Dictionary<string, object> dict;
             GDEDataManager.Get(_key, out dict);
-            dict.TryGetString(DifficultyLevelKey, out _DifficultyLevel);
+            dict.TryGetString(NextCardKey, out _NextCard);
         }
 
-        public void Reset_FirstChoose()
+        public void Reset_AnswerA()
         {
-            GDEDataManager.ResetToDefault(_key, FirstChooseKey);
+            GDEDataManager.ResetToDefault(_key, AnswerAKey);
 
             Dictionary<string, object> dict;
             GDEDataManager.Get(_key, out dict);
-            dict.TryGetString(FirstChooseKey, out _FirstChoose);
+            dict.TryGetString(AnswerAKey, out _AnswerA);
         }
 
-        public void Reset_FirstNext()
+        public void Reset_AnswerB()
         {
-            GDEDataManager.ResetToDefault(_key, FirstNextKey);
+            GDEDataManager.ResetToDefault(_key, AnswerBKey);
 
             Dictionary<string, object> dict;
             GDEDataManager.Get(_key, out dict);
-            dict.TryGetString(FirstNextKey, out _FirstNext);
+            dict.TryGetString(AnswerBKey, out _AnswerB);
         }
 
-        public void Reset_SecondChoose()
+        public void Reset_AnswerC()
         {
-            GDEDataManager.ResetToDefault(_key, SecondChooseKey);
+            GDEDataManager.ResetToDefault(_key, AnswerCKey);
 
             Dictionary<string, object> dict;
             GDEDataManager.Get(_key, out dict);
-            dict.TryGetString(SecondChooseKey, out _SecondChoose);
+            dict.TryGetString(AnswerCKey, out _AnswerC);
         }
 
-        public void Reset_SecondNext()
+        public void Reset_AnswerD()
         {
-            GDEDataManager.ResetToDefault(_key, SecondNextKey);
+            GDEDataManager.ResetToDefault(_key, AnswerDKey);
 
             Dictionary<string, object> dict;
             GDEDataManager.Get(_key, out dict);
-            dict.TryGetString(SecondNextKey, out _SecondNext);
-        }
-
-        public void Reset_ThirdChoose()
-        {
-            GDEDataManager.ResetToDefault(_key, ThirdChooseKey);
-
-            Dictionary<string, object> dict;
-            GDEDataManager.Get(_key, out dict);
-            dict.TryGetString(ThirdChooseKey, out _ThirdChoose);
-        }
-
-        public void Reset_ThirdNext()
-        {
-            GDEDataManager.ResetToDefault(_key, ThirdNextKey);
-
-            Dictionary<string, object> dict;
-            GDEDataManager.Get(_key, out dict);
-            dict.TryGetString(ThirdNextKey, out _ThirdNext);
-        }
-
-        public void Reset_ForthChoose()
-        {
-            GDEDataManager.ResetToDefault(_key, ForthChooseKey);
-
-            Dictionary<string, object> dict;
-            GDEDataManager.Get(_key, out dict);
-            dict.TryGetString(ForthChooseKey, out _ForthChoose);
-        }
-
-        public void Reset_ForthNext()
-        {
-            GDEDataManager.ResetToDefault(_key, ForthNextKey);
-
-            Dictionary<string, object> dict;
-            GDEDataManager.Get(_key, out dict);
-            dict.TryGetString(ForthNextKey, out _ForthNext);
+            dict.TryGetString(AnswerDKey, out _AnswerD);
         }
 
         public void ResetAll()
@@ -424,15 +343,12 @@ namespace GameDataEditor
             GDEDataManager.ResetToDefault(_key, MissionNameKey);
             GDEDataManager.ResetToDefault(_key, MissionDescriptionKey);
             GDEDataManager.ResetToDefault(_key, MissionLevelKey);
-            GDEDataManager.ResetToDefault(_key, DifficultyLevelKey);
-            GDEDataManager.ResetToDefault(_key, FirstChooseKey);
-            GDEDataManager.ResetToDefault(_key, FirstNextKey);
-            GDEDataManager.ResetToDefault(_key, SecondChooseKey);
-            GDEDataManager.ResetToDefault(_key, SecondNextKey);
-            GDEDataManager.ResetToDefault(_key, ThirdChooseKey);
-            GDEDataManager.ResetToDefault(_key, ThirdNextKey);
-            GDEDataManager.ResetToDefault(_key, ForthChooseKey);
-            GDEDataManager.ResetToDefault(_key, ForthNextKey);
+            GDEDataManager.ResetToDefault(_key, NextCardKey);
+            GDEDataManager.ResetToDefault(_key, AnswerAKey);
+            GDEDataManager.ResetToDefault(_key, AnswerBKey);
+            GDEDataManager.ResetToDefault(_key, AnswerCKey);
+            GDEDataManager.ResetToDefault(_key, AnswerDKey);
+            GDEDataManager.ResetToDefault(_key, FightKey);
 
 
             Dictionary<string, object> dict;

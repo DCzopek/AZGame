@@ -41,10 +41,9 @@ namespace GameDataEditor
         public static string Monsters_MO019 = "MO019";
         public static string Monsters_MO020 = "MO020";
         public static string Missions_M001 = "M001";
-        public static string Missions_M0011 = "M0011";
-        public static string Missions_M0012 = "M0012";
-        public static string Missions_M0013 = "M0013";
-        public static string Missions_M0014 = "M0014";
+        public static string Missions_M001A = "M001A";
+        public static string Missions_M001B = "M001B";
+        public static string Missions_M001C = "M001C";
         public static string Missions_M002 = "M002";
     }
 }
