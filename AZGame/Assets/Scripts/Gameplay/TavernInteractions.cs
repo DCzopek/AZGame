@@ -31,10 +31,6 @@ public class TavernInteractions : MonoBehaviour {
         DisableButtons();
         RandomizeMission();
         missionView.SetActive(true);
-        //TODO show menu with available missions - level easy and medium
-        //TODO choosing missions from list
-        //TODO saving choosen mission
-        // Key rule: only one mission taken
         Debug.Log("pressed inkeepper");
     }
     public void CustomerInteraction()
@@ -42,15 +38,13 @@ public class TavernInteractions : MonoBehaviour {
         DisableButtons();
         RandomizeMission();
         missionView.SetActive(true);
-        //TODO show menu with available missions - level easy and medium
-        //TODO choosing missions from list
-        //TODO saving choosen mission
-        // Key rule: only one mission taken
         Debug.Log("customer pressed");
     }
-    void RandomizeMission()
+    public void RandomizeMission()
     {
-        gdeManager.currentMission = GDEManager.missionList[Random.Range(0, GDEManager.missionList.Count)];
+        gdeManager.previousMission = gdeManager.currentMission;
+        while(gdeManager.previousMission == gdeManager.currentMission)
+            gdeManager.currentMission = GDEManager.missionList[Random.Range(0, GDEManager.missionList.Count)];
         missionName.text = gdeManager.currentMission.MissionName;
         missionDescription.text = gdeManager.currentMission.MissionDescription;
     }

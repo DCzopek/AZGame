@@ -15,6 +15,7 @@ public class GDEManager : MonoBehaviour {
 
     public static List<GDEMissionsData> missionList;
     public GDEMissionsData currentMission;
+    public GDEMissionsData previousMission;
 
     static FileStream file;
     static PlayerData data = new PlayerData();
