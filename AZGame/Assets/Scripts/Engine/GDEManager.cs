@@ -17,6 +17,9 @@ public class GDEManager : MonoBehaviour {
     public GDEMissionsData currentMission;
     public GDEMissionsData previousMission;
 
+    public static List<GDEMonstersData> monstersList;
+    public static GDEMonstersData currentMonster;
+
     static FileStream file;
     static PlayerData data = new PlayerData();
 
@@ -41,10 +44,14 @@ public class GDEManager : MonoBehaviour {
 
         characterList = new List<GDECharactersData>();
         missionList = new List<GDEMissionsData>();
+        monstersList = new List<GDEMonstersData>();
 
         FindMissions();
 
         FindCharacters();
+
+        FindMonsters();
+
         FillCharactersDescriptionsText();
         //Choose character once and set his data to current character
 
@@ -63,6 +70,14 @@ public class GDEManager : MonoBehaviour {
         {
                 characterList.Add(item);
         }
+    }
+    void FindMonsters()
+    {
+        foreach (GDEMonstersData item in GDEDataManager.GetAllItems<GDEMonstersData>())
+        {
+            monstersList.Add(item);
+        }
+        Debug.Log("ilosc potworow " + monstersList.Count);
     }
     void FillCharactersDescriptionsText()
     {

@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class AdventureManager : MonoBehaviour {
 
+    
+
     GDEManager gdeManager;
+
+    BattleController battleController;
 
     TextFields textFields;
 
@@ -13,11 +17,19 @@ public class AdventureManager : MonoBehaviour {
         gdeManager = FindObjectOfType<GDEManager>();
         textFields = GetComponent<TextFields>();
 
+        battleController = FindObjectOfType<BattleController>();
+
         LoadMissionData();
     }
     public void LoadMissionData()
     {
-        if (gdeManager.currentMission.NextCard == null) return;
+        if (gdeManager.currentMission.NextCard == null)
+            return;
+
+        if (gdeManager.currentMission.Fight == true)
+        {
+            battleController.StartBattle();
+        } 
 
         gdeManager.currentMission = new GameDataEditor.GDEMissionsData(gdeManager.currentMission.NextCard);
         textFields.missionName.text = gdeManager.currentMission.MissionName;
@@ -27,6 +39,7 @@ public class AdventureManager : MonoBehaviour {
         textFields.answerC.text = gdeManager.currentMission.AnswerC;
         textFields.answerD.text = gdeManager.currentMission.AnswerD;
     }
-
+    
+    
 
 }

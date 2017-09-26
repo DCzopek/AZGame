@@ -37,7 +37,8 @@ public class ButtonFuctions : MonoBehaviour {
     }
     public void StartAdventure()
     {
-        sceneController.LoadScene(GameScene.Adventure, true);
+        if(gdeManager.currentMission != null)
+            sceneController.LoadScene(GameScene.Adventure, true);
     }
     public void GoToTavern()
     {
