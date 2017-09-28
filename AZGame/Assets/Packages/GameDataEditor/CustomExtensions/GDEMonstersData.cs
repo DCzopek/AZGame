@@ -74,6 +74,20 @@ namespace GameDataEditor
             }
         }
 
+        static string SpecialAbilityAdditiveKey = "SpecialAbilityAdditive";
+		float _SpecialAbilityAdditive;
+        public float SpecialAbilityAdditive
+        {
+            get { return _SpecialAbilityAdditive; }
+            set {
+                if (_SpecialAbilityAdditive != value)
+                {
+                    _SpecialAbilityAdditive = value;
+					GDEDataManager.SetFloat(_key, SpecialAbilityAdditiveKey, _SpecialAbilityAdditive);
+                }
+            }
+        }
+
         static string MonsterNameKey = "MonsterName";
 		string _MonsterName;
         public string MonsterName
@@ -130,6 +144,20 @@ namespace GameDataEditor
             }
         }
 
+        static string SpecialAbilityKey = "SpecialAbility";
+		string _SpecialAbility;
+        public string SpecialAbility
+        {
+            get { return _SpecialAbility; }
+            set {
+                if (_SpecialAbility != value)
+                {
+                    _SpecialAbility = value;
+					GDEDataManager.SetString(_key, SpecialAbilityKey, _SpecialAbility);
+                }
+            }
+        }
+
         public GDEMonstersData(string key) : base(key)
         {
             GDEDataManager.RegisterItem(this.SchemaName(), key);
@@ -143,10 +171,12 @@ namespace GameDataEditor
             dict.Merge(true, BasicMeleeLow.ToGDEDict(BasicMeleeLowKey));
             dict.Merge(true, BasicDistanceLow.ToGDEDict(BasicDistanceLowKey));
             dict.Merge(true, BasicMagicLow.ToGDEDict(BasicMagicLowKey));
+            dict.Merge(true, SpecialAbilityAdditive.ToGDEDict(SpecialAbilityAdditiveKey));
             dict.Merge(true, MonsterName.ToGDEDict(MonsterNameKey));
             dict.Merge(true, MonsterType.ToGDEDict(MonsterTypeKey));
             dict.Merge(true, MonsterDescription.ToGDEDict(MonsterDescriptionKey));
             dict.Merge(true, DifficultyLevel.ToGDEDict(DifficultyLevelKey));
+            dict.Merge(true, SpecialAbility.ToGDEDict(SpecialAbilityKey));
             return dict;
 		}
 
@@ -166,10 +196,12 @@ namespace GameDataEditor
                 dict.TryGetFloat(BasicMeleeLowKey, out _BasicMeleeLow);
                 dict.TryGetFloat(BasicDistanceLowKey, out _BasicDistanceLow);
                 dict.TryGetFloat(BasicMagicLowKey, out _BasicMagicLow);
+                dict.TryGetFloat(SpecialAbilityAdditiveKey, out _SpecialAbilityAdditive);
                 dict.TryGetString(MonsterNameKey, out _MonsterName);
                 dict.TryGetString(MonsterTypeKey, out _MonsterType);
                 dict.TryGetString(MonsterDescriptionKey, out _MonsterDescription);
                 dict.TryGetString(DifficultyLevelKey, out _DifficultyLevel);
+                dict.TryGetString(SpecialAbilityKey, out _SpecialAbility);
                 LoadFromSavedData(dataKey);
 			}
 		}
@@ -182,10 +214,12 @@ namespace GameDataEditor
             _BasicMeleeLow = GDEDataManager.GetFloat(_key, BasicMeleeLowKey, _BasicMeleeLow);
             _BasicDistanceLow = GDEDataManager.GetFloat(_key, BasicDistanceLowKey, _BasicDistanceLow);
             _BasicMagicLow = GDEDataManager.GetFloat(_key, BasicMagicLowKey, _BasicMagicLow);
+            _SpecialAbilityAdditive = GDEDataManager.GetFloat(_key, SpecialAbilityAdditiveKey, _SpecialAbilityAdditive);
             _MonsterName = GDEDataManager.GetString(_key, MonsterNameKey, _MonsterName);
             _MonsterType = GDEDataManager.GetString(_key, MonsterTypeKey, _MonsterType);
             _MonsterDescription = GDEDataManager.GetString(_key, MonsterDescriptionKey, _MonsterDescription);
             _DifficultyLevel = GDEDataManager.GetString(_key, DifficultyLevelKey, _DifficultyLevel);
+            _SpecialAbility = GDEDataManager.GetString(_key, SpecialAbilityKey, _SpecialAbility);
         }
 
         public GDEMonstersData ShallowClone()
@@ -197,10 +231,12 @@ namespace GameDataEditor
             newClone.BasicMeleeLow = BasicMeleeLow;
             newClone.BasicDistanceLow = BasicDistanceLow;
             newClone.BasicMagicLow = BasicMagicLow;
+            newClone.SpecialAbilityAdditive = SpecialAbilityAdditive;
             newClone.MonsterName = MonsterName;
             newClone.MonsterType = MonsterType;
             newClone.MonsterDescription = MonsterDescription;
             newClone.DifficultyLevel = DifficultyLevel;
+            newClone.SpecialAbility = SpecialAbility;
 
             return newClone;
 		}
@@ -247,6 +283,15 @@ namespace GameDataEditor
             dict.TryGetFloat(BasicMagicLowKey, out _BasicMagicLow);
         }
 
+        public void Reset_SpecialAbilityAdditive()
+        {
+            GDEDataManager.ResetToDefault(_key, SpecialAbilityAdditiveKey);
+
+            Dictionary<string, object> dict;
+            GDEDataManager.Get(_key, out dict);
+            dict.TryGetFloat(SpecialAbilityAdditiveKey, out _SpecialAbilityAdditive);
+        }
+
         public void Reset_MonsterName()
         {
             GDEDataManager.ResetToDefault(_key, MonsterNameKey);
@@ -283,6 +328,15 @@ namespace GameDataEditor
             dict.TryGetString(DifficultyLevelKey, out _DifficultyLevel);
         }
 
+        public void Reset_SpecialAbility()
+        {
+            GDEDataManager.ResetToDefault(_key, SpecialAbilityKey);
+
+            Dictionary<string, object> dict;
+            GDEDataManager.Get(_key, out dict);
+            dict.TryGetString(SpecialAbilityKey, out _SpecialAbility);
+        }
+
         public void ResetAll()
         {
             GDEDataManager.ResetToDefault(_key, MonsterNameKey);
@@ -293,6 +347,8 @@ namespace GameDataEditor
             GDEDataManager.ResetToDefault(_key, BasicMeleeLowKey);
             GDEDataManager.ResetToDefault(_key, BasicDistanceLowKey);
             GDEDataManager.ResetToDefault(_key, BasicMagicLowKey);
+            GDEDataManager.ResetToDefault(_key, SpecialAbilityKey);
+            GDEDataManager.ResetToDefault(_key, SpecialAbilityAdditiveKey);
 
 
             Dictionary<string, object> dict;

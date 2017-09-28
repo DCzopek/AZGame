@@ -5,18 +5,23 @@ using UnityEngine.UI;
 
 public class BattleController : MonoBehaviour
 {
-    public Text enemyHealthPoints;
+    public Button meleeAttack, distanceAttack, magicAttack;
+
+    
 
     public GameObject missionBackground;
     public GameObject battleground;
     public Enemy enemy;
+    public Player player;
 
-    Player player;
+
+    TextFieldsUpdate textFieldsUpdater;
+
+    
 
     private void Awake()
     {
-        player = FindObjectOfType<Player>();
-
+        textFieldsUpdater = FindObjectOfType<TextFieldsUpdate>();
     }
     public void StartBattle()
     {
@@ -28,17 +33,27 @@ public class BattleController : MonoBehaviour
         missionBackground.SetActive(false);
         battleground.SetActive(true);
     }
+    public void LoadMissionBoard()
+    {
+        battleground.SetActive(false);
+        missionBackground.SetActive(true);
+    }
     void RandomizeMonster()
     {
         // test
-        GDEManager.currentMonster = GDEManager.monstersList[0];
-        enemyHealthPoints.text = "Health: " + GDEManager.currentMonster.HealthPoints;
+        //GDEManager.currentMonster = GDEManager.monstersList[0];
         // default
-        //GDEManager.currentMonster = GDEManager.monstersList[Random.Range(0, GDEManager.monstersList.Count - 1)];
+        GDEManager.currentMonster = GDEManager.monstersList[Random.Range(0, GDEManager.monstersList.Count - 1)];
+        textFieldsUpdater.UpdateEnemyHealth(GDEManager.currentMonster.HealthPoints);
+        textFieldsUpdater.enemyName.text = GDEManager.currentMonster.MonsterName;
     }
-    public void UpdateEnemyInfo(float value)
+    public void UpdateEnemyHealth(float healthPoints)
     {
-        enemyHealthPoints.text = "Health: " + value;
+        textFieldsUpdater.UpdateEnemyHealth(healthPoints);
+    }
+    public void UpdatePlayerHealth()
+    {
+        textFieldsUpdater.UpdatePlayerHealth();
     }
     public void DealDamageToEnemy(string damageType)
     {
@@ -59,7 +74,24 @@ public class BattleController : MonoBehaviour
                 return 0;
         }
     }
-    
-
-
+    public void EndPlayerTurn()
+    {
+        meleeAttack.interactable = false;
+        distanceAttack.interactable = false;
+        magicAttack.interactable = false;
+    }
+    public void StartEnemyTurn()
+    {
+        enemy.StartTurn();
+    }
+    public void DealDamageToPlayer(float damage)
+    {
+        player.GetDamage(damage);
+    }
+    public void StartPlayerTurn()
+    {
+        meleeAttack.interactable = true;
+        distanceAttack.interactable = true;
+        magicAttack.interactable = true;
+    }
 }

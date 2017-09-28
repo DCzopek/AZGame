@@ -21,5 +21,8 @@ public class MissionInteractions : MonoBehaviour {
     public void CharacterAction(string damageType)
     {
         battleController.DealDamageToEnemy(damageType);
+        battleController.EndPlayerTurn();
+        battleController.StartEnemyTurn();
     }
+    
 }

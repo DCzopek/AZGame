@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
 
     BattleController battleController;
 
+    float specialAbilityPoints = 0f;
+
     private void Awake()
     {
         battleController = FindObjectOfType<BattleController>();
@@ -26,6 +28,30 @@ public class Enemy : MonoBehaviour
     public void GetDamage(float damage)
     {
         healthPoints -= damage;
-        battleController.UpdateEnemyInfo(healthPoints);
+
+        if (healthPoints <= 0f)
+        {
+            battleController.LoadMissionBoard();
+            return;
+        }
+        battleController.UpdateEnemyHealth(healthPoints);
+    }
+    public void StartTurn()
+    {
+        float maxDamageValue = GetMaxDamageValue(GetMaxDamageValue(meleeDamage,magicDamage), distanceDamage);
+
+        specialAbilityPoints += GDEManager.currentMonster.SpecialAbilityAdditive;
+
+        //if(specialAbilityPoints >= 0.8f)
+            //TODO run special ability
+        
+        
+        battleController.DealDamageToPlayer(maxDamageValue);
+
+        battleController.StartPlayerTurn();
+    }
+    float GetMaxDamageValue(float val1, float val2)
+    {
+        return (val1 > val2) ? val1 : val2;
     }
 }
